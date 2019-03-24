@@ -106,14 +106,14 @@ body {
 }
     </style>
   </head>
-  <body>
-    <p th:if="${loginError}" class="error">Wrong user or password</p>
+  <body>  
     <div class="login-page">
   	<div class="form">
     <form th:action="@{/login}" method="post" class="login-form">
     	<h1>Login</h1>
       <input type="text" id="username" name="username" autofocus="autofocus" placeholder="username"/>
       <input type="password" id="password" name="password" placeholder="password"/> 
+      <p th:if="${loginError}" class="error">Wrong user or password</p>
       <button>login</button>
     </form>
       </div>

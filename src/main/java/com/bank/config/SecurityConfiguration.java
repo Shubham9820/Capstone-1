@@ -41,15 +41,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("**/admin/**").authenticated()
                 .anyRequest().permitAll()
-                .and();
+                .and()
+        		.exceptionHandling().accessDeniedPage("/accessDenied");
         
         http
         .formLogin()
         .loginPage("/login")
+        .failureUrl("/login-error")
         .permitAll()
         .and()
         .logout()
-        .logoutSuccessUrl("/index.html");
+        .logoutSuccessUrl("/");
     }
 
 }
