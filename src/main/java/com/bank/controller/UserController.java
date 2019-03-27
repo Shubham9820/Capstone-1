@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
     @GetMapping("/home")
-    @ResponseBody
     public String securedHello() {
-        return "user home";
+        return "user/details";
     }
 
 }

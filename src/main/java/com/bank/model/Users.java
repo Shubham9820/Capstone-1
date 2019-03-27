@@ -11,14 +11,10 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private int id;
-    @Column(name = "email")
-    private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "name")
+    @Column(name = "username")
     private String name;
-    @Column(name = "last_name")
-    private String lastName;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -27,10 +23,8 @@ public class Users {
     }
 
     public Users(Users users) {
-        this.email = users.getEmail();
         this.roles = users.getRoles();
         this.name = users.getName();
-        this.lastName =users.getLastName();
         this.id = users.getId();
         this.password = users.getPassword();
     }
@@ -43,13 +37,6 @@ public class Users {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPassword() {
         return password;
@@ -67,13 +54,6 @@ public class Users {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public Set<Role> getRoles() {
         return roles;

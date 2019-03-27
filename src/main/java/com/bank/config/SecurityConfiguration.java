@@ -45,6 +45,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		.exceptionHandling().accessDeniedPage("/accessDenied");
         
         http
+        .authorizeRequests()
+            .antMatchers("/", "/home", "/js/**", "/css/**").permitAll()
+            .anyRequest().authenticated();
+            
+        http
         .formLogin()
         .loginPage("/login")
         .failureUrl("/login-error")
