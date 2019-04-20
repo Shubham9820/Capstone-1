@@ -1,6 +1,11 @@
 package com.bank.controller;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +28,7 @@ public class UserController {
 	AccountRepository ar;
 	UsersRepository ur;
 	
+    
     @GetMapping("/home")
     public String home(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,5 +44,25 @@ public class UserController {
     	
         return "user/details";
     }
+    
+    @GetMapping("/otp")
+    public String otp(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	
+		if (principal instanceof CustomUserDetails) {
+			String username = ((CustomUserDetails)principal).getName();
+    		int userId = ((CustomUserDetails)principal).getUserId();
+    		UserAccount a= ar.findFirstByUserId(userId);
+    		model.addAttribute("UserDetail", a);
+    		model.addAttribute("username", username);
+
+  		}
+    	
+		
+        return "user/otptest";
+    }
+    
+    
+
 
 }
