@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bank.model.CustomUserDetails;
 import com.bank.model.UserAccount;
@@ -27,7 +26,6 @@ public class UserController {
 
 	@Autowired
 	AccountRepository ar;
-	@Autowired
 	UsersRepository ur;
 	
     
@@ -47,12 +45,22 @@ public class UserController {
         return "user/details";
     }
     
-    @GetMapping("/transaction")
-    public String transaction(Model model) {
-		return "user/transaction";
-    }
-    
+    @GetMapping("/otp")
+    public String otp(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	
+		if (principal instanceof CustomUserDetails) {
+			String username = ((CustomUserDetails)principal).getName();
+    		int userId = ((CustomUserDetails)principal).getUserId();
+    		UserAccount a= ar.findFirstByUserId(userId);
+    		model.addAttribute("UserDetail", a);
+    		model.addAttribute("username", username);
 
+  		}
+    	
+		
+        return "user/otptest";
+    }
     
     
 

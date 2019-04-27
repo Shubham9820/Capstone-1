@@ -30,10 +30,8 @@
    		<input id="matchotp" type="button" value="match otp"/>
    </form> 
  
-
 </body>
 <script>
-
 $("#genotp").on('click', function() {
     $.ajax({
         type:"post",
@@ -41,9 +39,8 @@ $("#genotp").on('click', function() {
         headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
         url:"/otpgen",
         dataType: "json",
-        success: function(data){
-        	if(data==-1)
-            	window.location.href = '/user/home';
+        success: function(){
+           alert("success");
         }
     });
 
@@ -61,8 +58,8 @@ $("#matchotp").on('click', function() {
         success: function(data){
         	if(data==1)
                 window.location.href = '/user/home'; 
-        	if(data==-1)
-                window.location.href = '/user/home';         }
+        	console.log(data);
+        }
     });
 
 });
