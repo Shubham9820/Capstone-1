@@ -17,7 +17,7 @@ public class EmployeeAccount {
 
 	   	@Id
 	    @Column(name = "employee_id")
-	    private String employee_id;
+	    private String employeeId;
 	    @Column(name = "first_name")
 	    private String first_name;
 	    @Column(name = "last_name")
@@ -39,7 +39,7 @@ public class EmployeeAccount {
 	    }
 
 	    public EmployeeAccount(EmployeeAccount employeesAccount) {
-	        this.employee_id = employeesAccount.getEmployee_id();
+	        this.employeeId = employeesAccount.getEmployee_id();
 	        this.first_name = employeesAccount.getFirst_name();
 	        this.last_name = employeesAccount.getLast_name();
 	        this.email = employeesAccount.getEmail();
@@ -51,10 +51,10 @@ public class EmployeeAccount {
 	    }
 	    
 	    public String getEmployee_id() {
-			return employee_id;
+			return employeeId;
 		}
 		public void setEmployee_id(String employee_id) {
-			this.employee_id = employee_id;
+			this.employeeId = employee_id;
 		}
 		public String getFirst_name() {
 			return first_name;

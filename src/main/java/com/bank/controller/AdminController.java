@@ -1,21 +1,22 @@
 package com.bank.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bank.model.CustomUserDetails;
-import com.bank.model.EmployeeAccount;
 import com.bank.model.UserAccount;
 import com.bank.repository.AccountRepository;
-import com.bank.repository.EmployeeAccountRepository;
 import com.bank.repository.UsersRepository;
-
 
 @RequestMapping("/admin")
 @PreAuthorize("hasAnyRole('ADMIN')")
@@ -23,26 +24,35 @@ import com.bank.repository.UsersRepository;
 public class AdminController {
 	
 	@Autowired
-	AccountRepository ar;
-	EmployeeAccountRepository er;
+	private AccountRepository ar;
 
     @GetMapping("/dashboard")
-    @ResponseBody
-    public String adminPage(Model model) {
-    	/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	
-    	if (principal instanceof CustomUserDetails) {
-			String username = ((CustomUserDetails)principal).getName();
-    		int userId = ((CustomUserDetails)principal).getUserId();
-    		EmployeeAccount ea= er.findFirstByUserId(userId);
-    		model.addAttribute("UserDetail", ea);
-    		model.addAttribute("username", username);
-
-  		}*/
-    	
-        return "admin dashboard";
+    public String adminDashboard(Model model, HttpServletRequest request,@RequestParam("accountNumber") Optional<String> ano) {
+//    	String accountNumber = (String)request.getAttribute("accountNumber");
+    	String t;
+    	if(ano.isPresent())
+    		t=ano.get();
+    	else
+    		t="U101116FCS242";
+    	Optional<UserAccount> ua = ar.findFirstByAccountNo(t);
+    	UserAccount u = ua.get();
+		System.out.println(u.getAccount_no());
+    	model.addAttribute("UserDetail",u);
+        return "admin/index";
     }
     
-	/* @RequestMapping("") */
+    @GetMapping("/dashboard/userProfiles")
+    public String manageUsers(Model model, HttpServletRequest request) {
+    	List<UserAccount> ua = ar.findAll();
+    	model.addAttribute("userList",ua);
+    	return "admin/userProfiles";
+    }
+    
+    @GetMapping("/dashboard/employeeProfiles")
+    public String manageEmployees(Model model) {
+    	//List<EmployeeAccount> ea = empRepo.findAll();
+    	//model.addAttribute("empList",ea);
+    	return "admin/empProfiles";
+    }
 
 }

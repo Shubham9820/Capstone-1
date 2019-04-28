@@ -6,5 +6,5 @@ import com.bank.model.EmployeeAccount;
 
 
 public interface EmployeeAccountRepository extends JpaRepository<EmployeeAccount, String>{
-		  EmployeeAccount findFirstByUserId(int id);
+	EmployeeAccount findFirstByEmployeeId(String id);
 }

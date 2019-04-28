@@ -17,7 +17,7 @@ public class UserAccount {
 
 	   	@Id
 	    @Column(name = "account_no")
-	    private String account_no;
+	    private String accountNo;
 	    @Column(name = "first_name")
 	    private String first_name;
 	    @Column(name = "last_name")
@@ -41,7 +41,7 @@ public class UserAccount {
 	    }
 
 	    public UserAccount(UserAccount usersAccount) {
-	        this.account_no = usersAccount.getAccount_no();
+	        this.accountNo = usersAccount.getAccount_no();
 	        this.first_name = usersAccount.getFirst_name();
 	        this.last_name = usersAccount.getLast_name();
 	        this.userId = usersAccount.getUser_id();
@@ -54,10 +54,10 @@ public class UserAccount {
 	    }
 	    
 	    public String getAccount_no() {
-			return account_no;
+			return accountNo;
 		}
 		public void setAccount_no(String account_no) {
-			this.account_no = account_no;
+			this.accountNo = account_no;
 		}
 		public String getFirst_name() {
 			return first_name;
