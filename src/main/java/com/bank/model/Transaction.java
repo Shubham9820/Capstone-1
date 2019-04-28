@@ -26,7 +26,7 @@ public class Transaction {
     @Column(name = "time")
     private String time;
     @Column(name = "approval_status")
-    private int status;
+    private String status;
     
     public Transaction() {
     	
@@ -78,10 +78,10 @@ public class Transaction {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
     
