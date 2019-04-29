@@ -27,11 +27,25 @@ public class EmployeeController {
         return "employee dashboard";
     }
     
-    @GetMapping("/transactions")
-    public String transaction(Model model) {
+    @GetMapping("/pendingtransactions")
+    public String pendingtransactions(Model model) {
     	List<Transaction> tList= tr.findByStatus("PENDING");
         model.addAttribute("transactions", tList);
-        return "employee/transactions";
+        return "employee/pendingtransactions";
+    }  
+    
+    @GetMapping("/approvedtransactions")
+    public String approvedtransactions(Model model) {
+    	List<Transaction> tList= tr.findByStatus("APPROVED");
+        model.addAttribute("transactions", tList);
+        return "employee/approvedtransactions";
+    }  
+
+    @GetMapping("/declinedtransactions")
+    public String declinedtransactions(Model model) {
+    	List<Transaction> tList= tr.findByStatus("DISAPPROVED");
+        model.addAttribute("transactions", tList);
+        return "employee/declinedtransactions";
     }  
     
 
