@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body id="page-top">
+  <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+  <div id="wrapper">
+    <div th:replace="admin/fragments/sidebar :: sidebar"></div>
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">User Profiles</li>
+        </ol>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            User Accounts</div>
+          <div class="card-body">
+            <div class="table-responsive">
+            <label>Search</label>
+            <input type="text" placeholder="Search" id="myInput" onkeyup="search()" title="Search for a name"/>
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Account No.</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User ID</th>
+                    <th>Password Hash</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="user : ${users}">
+                    <td th:text="${user.accountNo}"></td>
+            <td th:text="${user.first_name}"></td>
+            <td th:text="${user.last_name}"></td>
+            <td th:text="${user.email}"></td>
+            <td>   
+              <th:block th:utext="${user.address}"/>
+              <form name="res" th:action="@{passwordreset}" method="post">
+                <button class="reset" th:name="${user.email}" type="button">RESET PASSWORD</button>
+              </form>
+              </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <nav th:replace="admin/fragments/scripts :: scripts"></nav>
+
+  
+<script>
+$("#eProfiles").click(function(){
+  window.location.href="employeeProfiles";
+})
+
+$("#uProfiles").click(function(){
+  window.location.href="userProfiles";
+})
+
+$(".reset").click(function(){
+  var uid= this.name;
+    $.ajax({
+        type:"post",
+        data: { uId: uid},
+        headers: {"X-CSRF-TOKEN": $("input[name='_csrf']").val()},
+        url:"passwordreset",
+        dataType: "json",
+        success: function(data){
+          if(data==1)
+                alert("sucess")       
+        }
+    });
+})
+
+</script>
+</body>
+</html>

@@ -41,7 +41,7 @@ public class UserAccount {
 	    }
 
 	    public UserAccount(UserAccount usersAccount) {
-	        this.accountNo = usersAccount.getAccount_no();
+	        this.accountNo = usersAccount.getAccountNo();
 	        this.first_name = usersAccount.getFirst_name();
 	        this.last_name = usersAccount.getLast_name();
 	        this.userId = usersAccount.getUser_id();
@@ -53,10 +53,10 @@ public class UserAccount {
 	        this.country = usersAccount.getCountry();
 	    }
 	    
-	    public String getAccount_no() {
+	    public String getAccountNo() {
 			return accountNo;
 		}
-		public void setAccount_no(String account_no) {
+		public void setAccountNo(String account_no) {
 			this.accountNo = account_no;
 		}
 		public String getFirst_name() {

@@ -192,7 +192,7 @@ public class TransactionController {
 			String username = ((CustomUserDetails)principal).getName();
     		int userId = ((CustomUserDetails)principal).getUserId();
     		UserAccount a= ar.findFirstByUserId(userId);
-    		tr.setFrom(a.getAccount_no());
+    		tr.setFrom(a.getAccountNo());
     		int getotp = otpService.getOtp(username);
 			if (otp.matches("[0-9]+") && otp.length() == 6)
 				if(getotp==Integer.parseInt(otp)) {

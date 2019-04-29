@@ -50,7 +50,7 @@ public class UserController {
     		UserAccount a= ar.findFirstByUserId(userId);
     		model.addAttribute("UserDetail", a);
     		model.addAttribute("username", username);
-    		System.out.println(br.findByAccountNumber(a.getAccount_no()).get().getBalance());
+    		System.out.println(br.findByAccountNumber(a.getAccountNo()).get().getBalance());
   		}
         return "user/details";
     }
@@ -63,7 +63,7 @@ public class UserController {
 		if (principal instanceof CustomUserDetails) {
     		int userId = ((CustomUserDetails)principal).getUserId();
     		UserAccount a= ar.findFirstByUserId(userId);
-    		String accountNo= a.getAccount_no();
+    		String accountNo= a.getAccountNo();
         	List<Transaction> tList= tr.findByFromOrTo(accountNo,accountNo);
         	List<Transaction> newList= new ArrayList();
         	for(Transaction t : tList) {
