@@ -1,65 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="admin/fragments/head :: head"></head>
-
+<head th:replace="employee/fragments/head :: head"></head>
 
 <body id="page-top">
-
-<nav th:replace="admin/fragments/navbar :: navbar"></nav>
-
-
+  <nav th:replace="employee/fragments/navbar :: navbar"></nav>
   <div id="wrapper">
-
-    <!-- Sidebar -->
-    <div th:replace="admin/fragments/sidebar :: sidebar"></div>
-
-
+    <div th:replace="employee/fragments/sidebar :: sidebar"></div>
     <div id="content-wrapper">
-
       <div class="container-fluid">
-
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active">All Transactions</li>
         </ol>
-
-        <!-- Icon Cards-->
-        <form method="GET" action="#">
-          <div class="row">
-            <div class="col-xl-6 col-sm-6 mb-3">
-              <div class="card text-white bg-primary o-hidden h-0">
-                <button id= "eProfiles" type="button" class="btn btn-primary">Employee Profiles</button>
-              </div>
-            </div>
-            <!-- <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-warning o-hidden h-0">
-                <button type="submit" class="btn btn-warning">Employee Profile Management</button>
-              </div>
-            </div> -->
-            <div class="col-xl-6 col-sm-6 mb-3">
-              <div class="card text-white bg-success o-hidden h-0">
-                <button id="uProfiles" type="button" class="btn btn-success">User Profiles</button>
-              </div>
-            </div>
-            <!-- <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-danger o-hidden h-0">
-                <button type="submit" class="btn btn-error">User Profile Management</button>
-              </div>
-            </div> -->
-          </div>
-        </form>
-
-        <!-- Area Chart Example-->
 
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Data Table Example</div>
+            All Transactions</div>
           <div class="card-body">
             <div class="table-responsive">
             <label>Search</label>
@@ -67,30 +29,25 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Amount</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Time</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr  th:each="transaction : ${transactions}">
-    <td th:text="${transaction.id}"></td>
-    <td th:text="${transaction.from}"></td>
-    <td th:text="${transaction.to}"></td>
-    <td th:text="${transaction.time}"></td>
-    <td th:text="${transaction.amount}"></td>
-    <td th:text="${transaction.status}"></td>
-
+                  <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.amount}"></td>
+                	<td th:text="${transaction.from}"></td>
+                	<td th:text="${transaction.to}"></td>
+                	<td th:text="${transaction.time}"></td>
+                	<td th:text="${transaction.status}"></td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
       </div>
@@ -136,20 +93,9 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <nav th:replace="admin/fragments/scripts :: scripts"></nav>
-
-<script>
-$("#eProfiles").click(function(){
-	window.location.href="employeeProfiles";
-})
-
-$("#uProfiles").click(function(){
-	window.location.href="userProfiles";
-})
-</script>
+  <nav th:replace="employee/fragments/scripts :: scripts"></nav>
 
   
 
 </body>
-
 </html>
