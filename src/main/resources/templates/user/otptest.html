@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="utf-8" />
- 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Paper Dashboard 2 by Creative Tim
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"/>
-  <!-- CSS Files -->
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-  <link th:href="@{/css/paper-dashboard.css?v=2.0.0}" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="  crossorigin="anonymous"></script>
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-</head>
+<head th:replace="user/fragments/head :: head"></head>
+
 
 <body>
 
@@ -29,8 +14,10 @@
    		<input id="otpinput" type="text" name="otp"/>
    		<input id="matchotp" type="button" value="match otp"/>
    </form> 
+ 		<div th:replace="user/fragments/scripts :: scripts"></div>
  
 </body>
+
 <script>
 $("#genotp").on('click', function() {
     $.ajax({

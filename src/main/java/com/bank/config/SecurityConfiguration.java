@@ -1,5 +1,8 @@
 package com.bank.config;
 
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,10 +51,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .formLogin()
         .loginPage("/login")
         .failureUrl("/login-error")
+        .defaultSuccessUrl("/success")
         .permitAll()
         .and()
         .logout()
         .logoutSuccessUrl("/");
+    }
+    
+    public class SessionListener implements HttpSessionListener {
+
+        @Override
+        public void sessionCreated(HttpSessionEvent event) {
+            event.getSession().setMaxInactiveInterval(15);
+        }
+
+        @Override
+        public void sessionDestroyed(HttpSessionEvent event) {
+        }
     }
 
 }

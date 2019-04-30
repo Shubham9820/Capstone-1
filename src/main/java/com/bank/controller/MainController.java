@@ -19,9 +19,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 	
-
+	@Autowired
+	UserRoleRepository ur;	
+	
 	@RequestMapping("")
 	public String home() {
+		return "home";
+	}
+	
+	@RequestMapping("/success")
+	public String success() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof CustomUserDetails) {
+    		int userId = ((CustomUserDetails)principal).getUserId();
+    		UserRole u=ur.getOne(userId);
+    		int roleId=u.getRoleId();
+    		switch (roleId) {
+    		
+    			case 1: return "redirect:/admin";
+
+    			case 2: return "redirect:/employee";
+    		
+    			case 3: return "redirect:/user";
+    		}
+		}
 		return "home";
 	}
 	

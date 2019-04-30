@@ -20,12 +20,19 @@ public class EmployeeController {
 	
 	@Autowired
 	TransactionRepository tr;
+	
+	 @GetMapping("")
+	    public String mhome(Model model) {
+	        return "redirect:employee/dashboard";
+	    }
 
     @GetMapping("/dashboard")
-    @ResponseBody
-    public String dashboard() {
-        return "employee dashboard";
-    }
+    public String dashboard(Model model) {
+    	List<Transaction> tList= tr.findAll();
+        model.addAttribute("transactions", tList);
+        return "employee/home";
+
+        }
     
     @GetMapping("/pendingtransactions")
     public String pendingtransactions(Model model) {

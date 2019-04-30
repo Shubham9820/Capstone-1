@@ -42,7 +42,12 @@ public class AdminController {
 	private UserRoleRepository uror;
 	@Autowired
 	private BalanceRepository br;
-
+	
+	 @GetMapping("")
+	    public String mhome(Model model) {
+	        return "redirect:admin/dashboard";
+	    }
+	
     @GetMapping("/dashboard")
     public String adminDashboard(Model model, HttpServletRequest request) {
     	List<Transaction> tList= tr.findAll();

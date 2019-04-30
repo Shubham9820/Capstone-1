@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bank.model.Balance;
 import com.bank.model.CustomUserDetails;
 import com.bank.model.Transaction;
 import com.bank.model.UserAccount;
@@ -40,6 +41,26 @@ public class UserController {
 	@Autowired
 	BalanceRepository br;
     
+	 @GetMapping("")
+	    public String mhome(Model model) {
+	        return "redirect:user/home";
+	    }
+	
+    @GetMapping("/home")
+    public String uhome(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	
+		if (principal instanceof CustomUserDetails) {
+    		int userId = ((CustomUserDetails)principal).getUserId();
+    		UserAccount a= ar.findFirstByUserId(userId);
+    		Balance bl= br.findOne(a.getAccountNo());
+    		double balance= bl.getBalance();
+    		String bal= "Rs. "+String.format ("%.2f", balance);
+    		model.addAttribute("balance", bal);
+  		}
+        return "user/home";
+    }
+	
     @GetMapping("/details")
     public String home(Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

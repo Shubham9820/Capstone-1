@@ -162,8 +162,16 @@ public class TransactionController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof CustomUserDetails) {
 			String username = ((CustomUserDetails)principal).getName();
+    		int userId = ((CustomUserDetails)principal).getUserId();
+    		UserAccount a= ar.findFirstByUserId(userId);
 			int otp = otpService.generateOTP(username);
 			System.out.println(otp);
+			try {
+				sendEmail(a.getEmail(), "Your OTP is "+otp, "OTP for your transaction");
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return 0;
